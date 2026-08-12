@@ -2522,7 +2522,7 @@ dd {
 
 @media (max-width: 768px) {
   :root {
-    --header-height: 64px;
+    --header-height: 74px;
     --anchor-gap: 16px;
     --anchor-offset: calc(var(--header-height) + var(--anchor-gap));
   }
@@ -2797,6 +2797,10 @@ dd {
 
 @media (max-width: 768px) {
   .topbar {
+    position: fixed;
+    top: 10px;
+    right: 16px;
+    left: 16px;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
     min-height: 64px;
@@ -2947,12 +2951,12 @@ dd {
   html,
   body {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   .page-shell {
     width: calc(100% - 32px);
-    padding: 10px 0 24px;
+    padding: calc(var(--header-height) + 20px) 0 24px;
   }
 
   .hero,
@@ -3187,6 +3191,11 @@ dd {
 }
 
 @media (max-width: 480px) {
+  .topbar {
+    right: 10px;
+    left: 10px;
+  }
+
   .hero-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

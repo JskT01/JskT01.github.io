@@ -490,12 +490,12 @@ function initializeMobileMenu() {
       closeMenu();
 
       window.requestAnimationFrame(() => {
-        const headerHeight = topbar.getBoundingClientRect().height;
+        const headerBottom = topbar.getBoundingClientRect().bottom;
         const targetTop = target.getBoundingClientRect().top + window.scrollY;
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         window.scrollTo({
-          top: Math.max(0, targetTop - headerHeight - 16),
+          top: Math.max(0, targetTop - headerBottom - 16),
           behavior: prefersReducedMotion ? "auto" : "smooth"
         });
         window.history.pushState(null, "", targetId);
