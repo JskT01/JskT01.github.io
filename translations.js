@@ -412,6 +412,8 @@
       },
       attributes: {
         "Language selector": "Selector de idioma",
+        "Open navigation menu": "Abrir menú de navegación",
+        "Close navigation menu": "Cerrar menú de navegación",
         "Leadership capabilities": "Capacidades de liderazgo",
         "Professional credibility metrics": "Métricas de credibilidad profesional",
         "Professional metrics": "Métricas profesionales",

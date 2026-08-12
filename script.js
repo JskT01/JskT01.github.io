@@ -414,8 +414,74 @@ function initializeProjectModal() {
   document.addEventListener("keydown", handleProjectModalKeydown);
 }
 
+function initializeMobileMenu() {
+  const topbar = document.querySelector(".topbar");
+  const toggle = topbar?.querySelector(".mobile-menu-toggle");
+  const panel = topbar?.querySelector(".header-actions-panel");
+  const backdrop = topbar?.querySelector(".mobile-menu-backdrop");
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+  if (!topbar || !toggle || !panel || !backdrop) {
+    return;
+  }
+
+  function updateToggleLabel(isOpen) {
+    const isSpanish = document.documentElement.lang === "es";
+    toggle.setAttribute(
+      "aria-label",
+      isOpen
+        ? isSpanish ? "Cerrar menú de navegación" : "Close navigation menu"
+        : isSpanish ? "Abrir menú de navegación" : "Open navigation menu"
+    );
+  }
+
+  function closeMenu({ restoreFocus = false } = {}) {
+    if (!topbar.classList.contains("is-menu-open")) {
+      return;
+    }
+    topbar.classList.remove("is-menu-open");
+    document.body.classList.remove("mobile-menu-open");
+    toggle.setAttribute("aria-expanded", "false");
+    updateToggleLabel(false);
+    if (restoreFocus) toggle.focus({ preventScroll: true });
+  }
+
+  function openMenu() {
+    if (!mobileQuery.matches) {
+      return;
+    }
+    topbar.classList.add("is-menu-open");
+    document.body.classList.add("mobile-menu-open");
+    toggle.setAttribute("aria-expanded", "true");
+    updateToggleLabel(true);
+    panel.querySelector("a, button")?.focus({ preventScroll: true });
+  }
+
+  toggle.addEventListener("click", () => {
+    topbar.classList.contains("is-menu-open") ? closeMenu() : openMenu();
+  });
+  backdrop.addEventListener("click", () => closeMenu({ restoreFocus: true }));
+  panel.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => closeMenu());
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && topbar.classList.contains("is-menu-open")) {
+      event.preventDefault();
+      closeMenu({ restoreFocus: true });
+    }
+  });
+  mobileQuery.addEventListener("change", (event) => {
+    if (!event.matches) closeMenu();
+  });
+  window.addEventListener("portfolio-language-change", () => {
+    updateToggleLabel(topbar.classList.contains("is-menu-open"));
+  });
+  updateToggleLabel(false);
+}
+
 function initializePortfolio() {
   window.portfolioI18n?.initialize();
+  initializeMobileMenu();
   initializeRevealAnimations();
   initializeExperienceModal();
   initializeProjectModal();
