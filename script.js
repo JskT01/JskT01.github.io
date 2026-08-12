@@ -178,6 +178,8 @@ function initializeExperienceModal() {
     remapClonedIds(clonedContent, experienceKey);
 
     modalBody.replaceChildren(...Array.from(clonedContent.childNodes));
+    modalBody.scrollTop = 0;
+    dialog.scrollTop = 0;
     modalTitle.textContent = trigger.dataset.company ?? "";
     modalDescription.textContent = trigger.dataset.position ?? "";
     modalMeta.textContent = trigger.dataset.client
@@ -191,6 +193,8 @@ function initializeExperienceModal() {
     lockPageScroll();
 
     window.requestAnimationFrame(() => {
+      modalBody.scrollTop = 0;
+      dialog.scrollTop = 0;
       modal.classList.add("is-open");
       dialog.focus({ preventScroll: true });
     });
@@ -237,6 +241,7 @@ function initializeProjectModal() {
   const modalCategory = modal?.querySelector("#project-modal-category");
   const modalTitle = modal?.querySelector("#project-modal-title");
   const modalDescription = modal?.querySelector("#project-modal-description");
+  const modalBody = modal?.querySelector("#project-modal-body");
   const modalLayout = modal?.querySelector("#project-modal-layout");
   const caseStudyButtons = document.querySelectorAll(".project-case-study-button");
 
@@ -248,6 +253,7 @@ function initializeProjectModal() {
     !modalCategory ||
     !modalTitle ||
     !modalDescription ||
+    !modalBody ||
     !modalLayout ||
     caseStudyButtons.length === 0
   ) {
@@ -350,6 +356,8 @@ function initializeProjectModal() {
     if (!populateProjectModal(projectId)) {
       return;
     }
+    modalBody.scrollTop = 0;
+    dialog.scrollTop = 0;
 
     suspendedCardIframe = trigger.closest(".project-card")?.querySelector("iframe") ?? null;
     if (suspendedCardIframe) {
@@ -363,6 +371,8 @@ function initializeProjectModal() {
     lockBodyScroll();
 
     window.requestAnimationFrame(() => {
+      modalBody.scrollTop = 0;
+      dialog.scrollTop = 0;
       modal.classList.add("is-open");
       closeButton.focus({ preventScroll: true });
     });
@@ -463,8 +473,34 @@ function initializeMobileMenu() {
     topbar.classList.contains("is-menu-open") ? closeMenu() : openMenu();
   });
   backdrop.addEventListener("click", () => closeMenu({ restoreFocus: true }));
-  panel.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => closeMenu());
+  panel.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (!mobileQuery.matches) {
+        return;
+      }
+
+      const targetId = link.getAttribute("href");
+      const target = targetId ? document.querySelector(targetId) : null;
+      if (!target) {
+        closeMenu();
+        return;
+      }
+
+      event.preventDefault();
+      closeMenu();
+
+      window.requestAnimationFrame(() => {
+        const headerHeight = topbar.getBoundingClientRect().height;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY;
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        window.scrollTo({
+          top: Math.max(0, targetTop - headerHeight - 16),
+          behavior: prefersReducedMotion ? "auto" : "smooth"
+        });
+        window.history.pushState(null, "", targetId);
+      });
+    });
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && topbar.classList.contains("is-menu-open")) {
