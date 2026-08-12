@@ -87,7 +87,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 6px 132px 6px 14px;
+  padding: 6px 238px 6px 14px;
   margin-bottom: 16px;
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -95,6 +95,63 @@ body::before {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow);
+}
+
+.language-switcher {
+  position: absolute;
+  top: 50%;
+  right: 150px;
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-tertiary);
+  font-family: var(--font-body);
+  transform: translateY(-50%);
+}
+
+.language-switcher button {
+  position: relative;
+  min-width: 32px;
+  min-height: 40px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: 600 0.8125rem/1 var(--font-body);
+  cursor: pointer;
+}
+
+.language-switcher button[aria-pressed="true"] {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.language-switcher button[aria-pressed="true"]::after {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  left: 5px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+}
+
+.language-switcher button:hover {
+  color: var(--text);
+}
+
+.language-switcher button:focus-visible {
+  outline: 3px solid rgba(57, 240, 197, 0.72);
+  outline-offset: 1px;
+  border-radius: 6px;
+}
+
+.recommendation-language-note {
+  margin: 8px 0 0;
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
 }
 
 .brand {
@@ -2284,6 +2341,18 @@ dd {
   max-width: var(--content-measure);
 }
 
+.experience-modal-body > h3 + p,
+.experience-modal-body > .fyware-career-summary,
+.experience-modal-body .role-summary {
+  width: 100%;
+  max-width: none;
+}
+
+.experience-modal-body > p + .case-block,
+.experience-modal-body .role-summary + .fyware-achievement-grid {
+  margin-top: 24px;
+}
+
 .experience-modal-body h3,
 .experience-modal-body h4 {
   font-family: var(--font-heading);
@@ -2381,7 +2450,7 @@ dd {
 
   .topbar {
     gap: 10px;
-    padding: 6px 128px 6px 12px;
+    padding: 6px 234px 6px 12px;
   }
 
   .nav {
@@ -2479,7 +2548,7 @@ dd {
 
   .topbar {
     gap: 8px;
-    padding: 6px 108px 6px 10px;
+    padding: 6px 238px 6px 10px;
   }
 
   .brand-copy {
@@ -2513,6 +2582,10 @@ dd {
     padding-inline: 8px;
     font-size: 0.8125rem;
     white-space: nowrap;
+  }
+
+  .language-switcher {
+    right: 150px;
   }
 
   .project-grid {

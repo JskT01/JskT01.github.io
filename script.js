@@ -183,6 +183,7 @@ function initializeExperienceModal() {
     modalMeta.textContent = trigger.dataset.client
       ? `${trigger.dataset.dates ?? ""} · Client: ${trigger.dataset.client}`
       : trigger.dataset.dates ?? "";
+    window.portfolioI18n?.applyTo(modal);
 
     activeTrigger = trigger;
     modal.hidden = false;
@@ -330,6 +331,7 @@ function initializeProjectModal() {
     modalTitle.textContent = template.dataset.title ?? "";
     modalDescription.textContent = template.dataset.summary ?? "";
     modalLayout.replaceChildren(template.content.cloneNode(true));
+    window.portfolioI18n?.applyTo(modal);
     return true;
   }
 
@@ -413,6 +415,7 @@ function initializeProjectModal() {
 }
 
 function initializePortfolio() {
+  window.portfolioI18n?.initialize();
   initializeRevealAnimations();
   initializeExperienceModal();
   initializeProjectModal();
