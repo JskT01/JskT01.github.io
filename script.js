@@ -442,6 +442,7 @@ function initializeMobileMenu() {
     topbar.classList.remove("is-menu-open");
     document.body.classList.remove("mobile-menu-open");
     toggle.setAttribute("aria-expanded", "false");
+    panel.setAttribute("aria-hidden", String(mobileQuery.matches));
     updateToggleLabel(false);
     if (restoreFocus) toggle.focus({ preventScroll: true });
   }
@@ -453,6 +454,7 @@ function initializeMobileMenu() {
     topbar.classList.add("is-menu-open");
     document.body.classList.add("mobile-menu-open");
     toggle.setAttribute("aria-expanded", "true");
+    panel.setAttribute("aria-hidden", "false");
     updateToggleLabel(true);
     panel.querySelector("a, button")?.focus({ preventScroll: true });
   }
@@ -468,14 +470,33 @@ function initializeMobileMenu() {
     if (event.key === "Escape" && topbar.classList.contains("is-menu-open")) {
       event.preventDefault();
       closeMenu({ restoreFocus: true });
+      return;
+    }
+    if (event.key === "Tab" && topbar.classList.contains("is-menu-open")) {
+      const focusable = [toggle, ...panel.querySelectorAll("a, button")];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
   mobileQuery.addEventListener("change", (event) => {
-    if (!event.matches) closeMenu();
+    if (!event.matches) {
+      closeMenu();
+      panel.setAttribute("aria-hidden", "false");
+    } else {
+      panel.setAttribute("aria-hidden", "true");
+    }
   });
   window.addEventListener("portfolio-language-change", () => {
     updateToggleLabel(topbar.classList.contains("is-menu-open"));
   });
+  panel.setAttribute("aria-hidden", String(mobileQuery.matches));
   updateToggleLabel(false);
 }
 

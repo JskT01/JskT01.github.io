@@ -2799,7 +2799,7 @@ dd {
   .topbar {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 10px;
-    min-height: 60px;
+    min-height: 64px;
     padding: 7px 10px;
   }
 
@@ -2820,8 +2820,8 @@ dd {
     position: relative;
     z-index: 203;
     display: grid;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     place-content: center;
     gap: 5px;
     padding: 0;
@@ -2877,7 +2877,7 @@ dd {
 
   .header-actions-panel .nav a {
     width: 100%;
-    min-height: 46px;
+    min-height: 48px;
     justify-content: flex-start;
     padding: 8px 10px;
     border-bottom: 1px solid rgba(120, 193, 255, 0.12);
@@ -2890,11 +2890,15 @@ dd {
     transform: none;
   }
 
+  .header-actions-panel .language-switcher button {
+    min-height: 44px;
+  }
+
   .header-actions-panel .button,
   .header-actions-panel .button:hover {
     position: static;
     width: 100%;
-    min-height: 44px;
+    min-height: 48px;
     justify-content: center;
     padding-inline: 16px;
     transform: none;
@@ -2939,22 +2943,265 @@ dd {
   body.mobile-menu-open {
     overflow: hidden;
   }
-}
 
-@media (max-width: 460px) {
-  .hero-metrics {
-    grid-template-columns: 1fr;
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
   }
 
-  .hero-metrics li + li {
-    border-top: 1px solid rgba(120, 193, 255, 0.14);
-    border-left: 0;
+  .page-shell {
+    width: calc(100% - 32px);
+    padding: 10px 0 24px;
+  }
+
+  .hero,
+  #projects,
+  #leadership,
+  #stack,
+  #experience,
+  #recommendations,
+  .feature-strip,
+  .footer {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .hero-card {
+    order: -1;
+    width: 100%;
+    max-width: 420px;
+    padding: 12px;
+  }
+
+  .photo-slot {
+    margin-bottom: 12px;
+  }
+
+  .profile-photo {
+    width: 100%;
+    max-width: 100%;
+    max-height: 290px;
+    aspect-ratio: 4 / 3;
+    object-position: center 16%;
+    border-radius: 16px;
+  }
+
+  .hero-profile h2 {
+    font-size: clamp(1.35rem, 6vw, 1.65rem);
+  }
+
+  .hero-copy h1 {
+    max-width: none;
+    margin: 8px 0 12px;
+    font-size: clamp(2rem, 8.5vw, 2.625rem);
+    line-height: 1.08;
+    overflow-wrap: break-word;
+  }
+
+  .hero-copy .hero-specialization,
+  .hero-copy .hero-introduction p,
+  .project-summary,
+  .timeline-body p,
+  .timeline-body li,
+  .recommendation-quote {
+    font-size: 1rem;
+  }
+
+  .hero-copy .hero-specialization,
+  .hero-copy .hero-introduction p {
+    line-height: 1.62;
   }
 
   .hero-leadership {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 14px;
+  }
+
+  .hero-leadership li::after {
+    display: none;
+  }
+
+  .hero-actions,
+  .project-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .hero-actions .button,
+  .hero-contact-link,
+  .project-case-study-button,
+  .project-actions a,
+  .experience-details-button {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  .hero-contact-link {
+    border: 1px solid rgba(120, 193, 255, 0.24);
+    border-radius: 999px;
+    text-decoration: none;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-metrics li {
+    padding: 13px 12px;
+  }
+
+  .section-heading {
+    margin-bottom: 16px;
+  }
+
+  .section-heading h2,
+  .footer h2 {
+    margin-top: 7px;
+    font-size: clamp(1.55rem, 6.8vw, 2.1rem);
+    line-height: 1.18;
+    overflow-wrap: break-word;
+  }
+
+  #projects,
+  #leadership,
+  #stack,
+  #experience,
+  #recommendations,
+  #education {
+    margin-bottom: 18px;
+  }
+
+  .project-card-featured,
+  .project-grid,
+  .timeline-item,
+  .recommendation-grid,
+  .feature-strip,
+  .leadership-evidence-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-card,
+  .project-card-featured,
+  .timeline-item,
+  .recommendation-card,
+  .feature-strip article {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .project-card-featured,
+  .timeline-item {
+    gap: 16px;
+  }
+
+  .project-card h3,
+  .timeline-body h3 {
+    font-size: clamp(1.2rem, 5.5vw, 1.5rem);
+    overflow-wrap: break-word;
+  }
+
+  .project-media,
+  .project-card-featured .project-media {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .project-card-featured .project-media {
+    margin-bottom: 0;
+  }
+
+  img,
+  iframe,
+  video {
+    max-width: 100%;
+  }
+
+  .project-tags,
+  .tag-row,
+  .tag-cloud,
+  .experience-tags {
+    max-width: 100%;
+  }
+
+  .project-tags span,
+  .tag-row span,
+  .tag-cloud span,
+  .experience-tags span {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  .experience-modal,
+  .project-modal {
+    padding: 0;
+  }
+
+  .experience-modal-dialog,
+  .project-modal-dialog {
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  .experience-modal-header,
+  .experience-modal-body,
+  .project-modal-header,
+  .project-modal-body {
+    padding: 18px;
+  }
+
+  .experience-modal-header h2,
+  .project-modal-header h2 {
+    font-size: clamp(1.35rem, 6vw, 1.75rem);
+    overflow-wrap: break-word;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .footer-links {
+    width: 100%;
+    text-align: left;
+  }
+
+  .footer-links a,
+  .recommendations-proof-link a {
+    min-height: 48px;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-metrics li:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .hero-metrics li:nth-child(n + 3) {
+    border-top: 1px solid rgba(120, 193, 255, 0.14);
+  }
+
+  .hero-leadership {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
 
   .hero-leadership li::after {
@@ -2964,6 +3211,42 @@ dd {
   .hero-profile-details div {
     grid-template-columns: 1fr;
     gap: 4px;
+  }
+
+  .hero,
+  #projects,
+  #leadership,
+  #stack,
+  #experience,
+  #recommendations,
+  .feature-strip,
+  .footer {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .project-card,
+  .project-card-featured,
+  .timeline-item,
+  .recommendation-card,
+  .feature-strip article {
+    padding: 16px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 10vw, 2.35rem);
+  }
+
+  .eyebrow,
+  .project-category {
+    letter-spacing: 0.07em;
+  }
+
+  .experience-modal-header,
+  .experience-modal-body,
+  .project-modal-header,
+  .project-modal-body {
+    padding: 16px;
   }
 }
 
